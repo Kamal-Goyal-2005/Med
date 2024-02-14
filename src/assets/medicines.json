@@ -1,0 +1,7 @@
+{
+    "medicines": [
+      { "name": "Medicine A", "alternate_name": "Hello", "price": 10 },
+      { "name": "Medicine B", "alternate_name": "Med B", "price": 15 },
+      { "name": "Medicine C", "alternate_name": "Med C", "price": 20 }
+    ]
+  }

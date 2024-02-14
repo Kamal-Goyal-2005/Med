@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="medicineOrderApp">
+<head>
+  <title>Medicine Order Form</title>
+  <!-- Add Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="container mt-5" ng-controller="MedicineOrderController">
+ <!-- medicine-order.component.html -->
+<h1 class="mb-4">Medicine Order Form</h1>
+
+<div class="form-group">
+<label for="medicine-input">Medicine Name:</label>
+<input type="text" id="medicine-input" list="medicine-list" class="form-control" [(ngModel)]="selectedMedicine" required>
+<datalist id="medicine-list">
+  <option *ngFor="let medicine of medicines" [value]="medicine.name">(Content same as {{medicine.alternate_name }}) (Price: {{ medicine.price }})</option>
+</datalist>
+</div>
+
+
+  
+<div class="form-group">
+  <label for="quantity-input">Enter Quantity:</label>
+  <input type="number" id="quantity-input" class="form-control" [(ngModel)]="quantity" min="1" value="1">
+</div>
+<div class="mb-2">
+  <button class="btn btn-primary mr-2" (click)="addMedicine()">Add Medicine</button>
+  <button class="btn btn-success" (click)="calculateTotalPrice()">Calculate Total Price</button>
+</div>
+<table class="table table-bordered">
+  <thead class="thead-light">
+    <tr>
+      <th>Medicine Name</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Modify Quantity</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let medicine of selectedMedicines; let i = index">
+      <td>{{ medicine.name }}</td>
+      <td>{{ medicine.quantity }}</td>
+      <td>{{ medicine.price * medicine.quantity | currency }}</td>
+      <td>
+        <input type="number" class="form-control" [(ngModel)]="medicine.quantity" min="1" (ngModelChange)="updateTotalPrice()">
+      </td>
+      <td>
+        <button class="btn btn-danger btn-sm" (click)="deleteMedicine(i)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p>Total Price: {{ totalPrice | currency }}</p>
+<button class="btn btn-primary" (click)="checkoutMedicines()">Checkout</button>
+{{message}}
+
+  <!-- Add AngularJS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
+ </body>
+</html>
